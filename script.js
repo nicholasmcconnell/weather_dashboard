@@ -1,7 +1,11 @@
+
+
 var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=Philadelphia,us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
 var query5DayURL = "http://api.openweathermap.org/data/2.5/forecast?q=philadelphia,us&units=imperial&APPID=b2af0c249ef1580d9d26aa8ca64187be"
 
-function dailyWeather(){
+dailyWeather();
+
+function dailyWeather() {
 
     $.ajax({
         url: queryURL,
@@ -11,12 +15,23 @@ function dailyWeather(){
 
         console.log(response);
 
-        
-        var date = 1577512800 * 1000;
+        var dailyDiv = $("#dailyDiv");
 
+        var date = response.dt * 1000;
+        var city = response.name;
         var dateTimeString = moment(date).format("MM-DD-YYYY");
+        var icon = resonse.icon;
+        console.log(city, dateTimeString);
+
+        var dailyHeading = $("#cityDateIcon").text(city);
+
+        dailyDiv.append(dailyHeading);
+
         
-        console.log(dateTimeString);
+
+        // + " (" + dateTimeString + ") " + icon
+
+        
 
 
         var lat = 0;
@@ -27,7 +42,7 @@ function dailyWeather(){
         //uv call after longitude and lat is pulled
         //pass long and lat as var to fill in url for UV call.
     });
-}
+ };
 
 
 function fiveDayForecast() {
