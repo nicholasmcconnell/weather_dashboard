@@ -15,21 +15,25 @@ function dailyWeather() {
 
         console.log(response);
 
+        //Heading
         var dailyDiv = $("#dailyDiv");
 
         var date = response.dt * 1000;
         var city = response.name;
         var dateTimeString = moment(date).format("MM-DD-YYYY");
-        var icon = resonse.icon;
-        console.log(city, dateTimeString);
-
-        var dailyHeading = $("#cityDateIcon").text(city);
+        //Object not showing
+        var iconCode = response.weather[0].icon
+        var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+        var icon = $("<img>").html("src", iconURL)
+        var dailyHeading = $("#cityDateIcon").text(city + " (" + dateTimeString + ") " + icon);
 
         dailyDiv.append(dailyHeading);
 
+
+
         
 
-        // + " (" + dateTimeString + ") " + icon
+    
 
         
 
