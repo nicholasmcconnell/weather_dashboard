@@ -21,13 +21,25 @@ function dailyWeather() {
         var date = response.dt * 1000;
         var city = response.name;
         var dateTimeString = moment(date).format("MM-DD-YYYY");
-        //Object not showing
-        var iconCode = response.weather[0].icon
-        var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
-        var icon = $("<img>").html("src", iconURL)
-        var dailyHeading = $("#cityDateIcon").text(city + " (" + dateTimeString + ") " + icon);
-
+        var iconCode = JSON.stringify(response.weather[0].icon);
+        iconCode = iconCode.replace("\"","");
+        iconCode = iconCode.replace("\"","");
+        //console.log(iconCode);
+        var iconURL = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+        //console.log(icon);
+        var icon = $("<img>").attr("src", iconURL)
+        var dailyHeading = $("#cityDateIcon").text(city + " (" + dateTimeString + ") ");
         dailyDiv.append(dailyHeading);
+        $("#icon").append(icon);
+
+        //Other parts
+        var temperature = ((response.main.temp - 273.15) * 9/5 + 32).toFixed(0);
+       $("#dailyTemp").text("Temperature: " + temperature);
+       
+       var humidity = response.main.humidity;
+       $("#dailyHumidity").text("Humidity: " + humidity + "%");
+       //console.log(humidity);
+
 
 
 
@@ -41,8 +53,8 @@ function dailyWeather() {
         var lat = 0;
         var lon = 0;
 
-        UVIndex();
-        return(lat, lon);
+        //UVIndex();
+        //return(lat, lon);
         //uv call after longitude and lat is pulled
         //pass long and lat as var to fill in url for UV call.
     });
