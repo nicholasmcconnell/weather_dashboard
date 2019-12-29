@@ -1,25 +1,26 @@
 
 
-var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=Philadelphia,us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
 var query5DayURL = "http://api.openweathermap.org/data/2.5/forecast?q=philadelphia,us&units=imperial&APPID=b2af0c249ef1580d9d26aa8ca64187be"
 
-dailyWeather();
-
-function dailyWeather() {
-
+function dailyWeather(input) {
+    
+    // $("#dailyDiv").empty();
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
+    
     $.ajax({
         url: queryURL,
         method: "GET"
 
     }).then(function(response){
 
-        console.log(response);
+
+        //console.log(response);
 
         //Heading
         var dailyDiv = $("#dailyDiv");
 
-        var date = response.dt * 1000;
         var city = response.name;
+        var date = response.dt * 1000;
         var dateTimeString = moment(date).format("MM-DD-YYYY");
         var iconCode = JSON.stringify(response.weather[0].icon);
         iconCode = iconCode.replace("\"","");
@@ -86,3 +87,14 @@ function UVIndex(){
         url
     })
 }
+
+//On Click
+
+$("#searchButton").on("click", function(event){
+    event.preventDefault();
+
+    var input = $("#input").val().trim();
+    dailyWeather(input);
+
+
+});
