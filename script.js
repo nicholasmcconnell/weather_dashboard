@@ -24,12 +24,12 @@
             iconCode = iconCode.replace("\"","");
             iconCode = iconCode.replace("\"","");
             //console.log(iconCode);
-            var iconURL = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+            var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
             //console.log(icon);
             var icon = $("<img>").attr("src", iconURL)
             var dailyHeading = $("#cityDateIcon").text(city + " (" + dateString + ") ");
-            dailyDiv.append(dailyHeading);
-            $("#dailyIcon").append(icon);
+            $("#cityDateIcon").append(dailyHeading, icon);
+            //dailyDiv.append(icon);
 
             //Other parts
             var temperature = ((response.main.temp - 273.15) * 9/5 + 32).toFixed(0);
@@ -71,7 +71,7 @@
             for (var i = 0; i < idArray.length; i++) {
                 
                 
-                var idString = JSON.stringify(idArray[i]);
+                var idString = idArray[i];
                 console.log(idString);
                 
                 $("#Day-" + idString).children("#icon").empty();
@@ -86,7 +86,7 @@
 
                 //Icon
 
-                var iconCode = JSON.stringify(dailyArray[listIndex].weather[0].icon);
+                var iconCode = dailyArray[listIndex].weather[0].icon;
                 iconCode = iconCode.replace("\"","");
                 iconCode = iconCode.replace("\"","");
                 //console.log(iconCode);
@@ -101,10 +101,6 @@
                 //Temperature
 
                 var tempString = dailyArray[listIndex].main.temp.toFixed(0);
-                console.log(tempString);
-                // var temp = JSON.stringify(tempString);
-                // temp = temp.replace("\"","");
-                // temp = temp.replace("\"","");
                 $("#Day-" + idString).children("#temp").text("Temp: " + tempString);
 
                 listIndex+=8;
