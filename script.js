@@ -1,10 +1,8 @@
 //$(document).ready(function() {
 
-    var query5DayURL = "http://api.openweathermap.org/data/2.5/forecast?q=philadelphia,us&units=imperial&APPID=b2af0c249ef1580d9d26aa8ca64187be"
-
     function dailyWeather(input) {
         
-        $("#icon").empty();
+        $("#dailyIcon").empty();
         var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
         
         $.ajax({
@@ -21,7 +19,7 @@
 
             var city = response.name;
             var date = response.dt * 1000;
-            var dateTimeString = moment(date).format("MM-DD-YYYY");
+            var dateString = moment(date).format("MM-DD-YYYY");
             var iconCode = JSON.stringify(response.weather[0].icon);
             iconCode = iconCode.replace("\"","");
             iconCode = iconCode.replace("\"","");
@@ -29,9 +27,9 @@
             var iconURL = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
             //console.log(icon);
             var icon = $("<img>").attr("src", iconURL)
-            var dailyHeading = $("#cityDateIcon").text(city + " (" + dateTimeString + ") ");
+            var dailyHeading = $("#cityDateIcon").text(city + " (" + dateString + ") ");
             dailyDiv.append(dailyHeading);
-            $("#icon").append(icon);
+            $("#dailyIcon").append(icon);
 
             //Other parts
             var temperature = ((response.main.temp - 273.15) * 9/5 + 32).toFixed(0);
@@ -53,43 +51,63 @@
         });
     };
 
-    fiveDayForecast();
-
-    function fiveDayForecast() {
+    function fiveDayForecast(input) {
+        
+        var query5DayURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + input + ",us&units=imperial&APPID=b2af0c249ef1580d9d26aa8ca64187be";
+        
         $.ajax({
             url: query5DayURL,
             method: "GET"
-
+            
         }).then(function(response) {
-
+            
             var dailyArray = response.list;
             var idArray = [1, 2, 3, 4, 5];
-            var listArray = 8;
-           
+            var listIndex = 6;
+            
             console.log(response);
-
+            
             
             for (var i = 0; i < idArray.length; i++) {
-            
+                
+                
                 var idString = JSON.stringify(idArray[i]);
                 console.log(idString);
+                
+                $("#Day-" + idString).children("#icon").empty();
 
-                var idArrayIndex = idArray.indexOf(i) + 1;
-                //console.log(jNew);
-            
-                // for (var j = 8; j < dailyArray.length; j+=8){
-                // }
+                //Date
 
+                var date = dailyArray[listIndex].dt * 1000;
+                var dateString = moment(date).format("MM/DD/YYYY");
+                dateString = dateString.replace("0", "");
+                dateString = dateString.replace("0", "");
+                $("#Day-" + idString).children("#date").text(dateString);
 
-                    var tempString = response.list[listArray].main.temp.toFixed(0);
-                    console.log(tempString);
-                    var temp = JSON.stringify(tempString);
-                    temp = temp.replace("\"","");
-                    temp = temp.replace("\"","");
-                    
-                    
-                $("#Day-" + idString).children("#temp").text(temp);
-                listArray+=8;
+                //Icon
+
+                var iconCode = JSON.stringify(dailyArray[listIndex].weather[0].icon);
+                iconCode = iconCode.replace("\"","");
+                iconCode = iconCode.replace("\"","");
+                //console.log(iconCode);
+                var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+                var icon = $("<img>").attr("src", iconURL)
+                $("#Day-" + idString).children("#icon").append(icon);
+
+                //Humidity
+                var humidity = dailyArray[listIndex].main.humidity;
+                $("#Day-" + idString).children("#humidity").text("Humidity: " + humidity + "%");
+
+                //Temperature
+
+                var tempString = dailyArray[listIndex].main.temp.toFixed(0);
+                console.log(tempString);
+                // var temp = JSON.stringify(tempString);
+                // temp = temp.replace("\"","");
+                // temp = temp.replace("\"","");
+                $("#Day-" + idString).children("#temp").text("Temp: " + tempString);
+
+                listIndex+=8;
 
             }   
         });
@@ -145,6 +163,7 @@
 
         var input = $("#input").val().trim();
         dailyWeather(input);
+        fiveDayForecast(input);
 
 
     });
