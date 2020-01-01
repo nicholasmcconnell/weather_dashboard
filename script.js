@@ -1,8 +1,26 @@
-//$(document).ready(function() {
+$(document).ready(function() {
+
+    var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
+
+        //On Click
+
+        $("#searchButton").on("click", function(event){
+            event.preventDefault();
+    
+            var input = $("#input").val().trim();
+            dailyWeather(input);
+            fiveDayForecast(input);
+            addButton(input);
+
+            localStorage.setItem("arrCity", JSON.stringify(input));
+
+    
+    
+        });
 
     function dailyWeather(input) {
         
-        $("#dailyIcon").empty();
+        //$("#dailyIcon").empty();
         var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
         
         $.ajax({
@@ -20,7 +38,7 @@
             var city = response.name;
             var date = response.dt * 1000;
             var dateString = moment(date).format("MM-DD-YYYY");
-            var iconCode = JSON.stringify(response.weather[0].icon);
+            var iconCode = response.weather[0].icon;
             iconCode = iconCode.replace("\"","");
             iconCode = iconCode.replace("\"","");
             //console.log(iconCode);
@@ -152,16 +170,15 @@
         });
     };
 
-    //On Click
+    function addButton(input) {
 
-    $("#searchButton").on("click", function(event){
-        event.preventDefault();
+        console.log(input);
+        //$("#cityButtonDiv").empty();
 
-        var input = $("#input").val().trim();
-        dailyWeather(input);
-        fiveDayForecast(input);
+        var button = $("<button type='button' class='btn btn-secondary btn-lg btn-block cityButton'>").text(input);
 
+        $("#cityButtonDiv").append(button);
 
-    });
+    }
 
-//});
+});
