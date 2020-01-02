@@ -1,6 +1,9 @@
 $(document).ready(function() {
 
-    var arrCity = JSON.parse(localStorage.getItem("arrCity")) || {};
+    var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
+    arrCity.forEach(addButton);
+
+
     //arrCity = arrCity ? arrCity.split(',') : [];
 
     //On Click
@@ -8,19 +11,24 @@ $(document).ready(function() {
     $("#searchButton").on("click", function(event){
         event.preventDefault();
 
-        var input = $("#input").val().trim();
-        dailyWeather(input);
-        fiveDayForecast(input);
-        addButton(input);
+        var city = $("#input").val().trim();
+        dailyWeather(city);
+        fiveDayForecast(city);
+        addButton(city);
+        arrCity.push(city),
 
-        localStorage.setItem("arrCity", JSON.stringify(input));
+        localStorage.setItem("arrCity", JSON.stringify(arrCity));
     });
 
-    $.each(arrCity, function(input) {
-        $("#cityButtonDiv").children("#cityButton").val(input);
-    });
+    // $.each(arrCity, function(input) {
+    //     $("#cityButtonDiv").children("#cityButton").val(input);
+    // });
 
-    $(".searchHistoryButton").on("click", function(event){
+    $(document).on("click", ".cityButton", function(){
+        console.log($(this));
+        var city = $(this).text();
+        dailyWeather(city);
+        fiveDayForecast(city);
         //on click for each history button?
         //or, how to target the text content of that history button without using id?
         // then I can call then I can pass that as variable to other ajax calls without being superredundant
@@ -30,17 +38,6 @@ $(document).ready(function() {
 
 
     });
-
-    function searchHistory(){
-
-        //add var input to an array or local storage?
-        // or pull from button id.text assuming buttons are hard coded?
-        // have separate api calls for search history buttons?
-        // can on click target .text that is not hardcoded in html? or all come from local storage?
-        // then id could be key and var input could be value
-        //pass input here and add to local storage?
-
-    }
 
     function dailyWeather(input) {
         
@@ -199,7 +196,12 @@ $(document).ready(function() {
         //$("#cityButtonDiv").empty();
         //var buttonID = 0;
 
-        var button = $("<button type='button' class='btn btn-secondary btn-lg btn-block cityButton' id='cityButton'>").text(input);
+        //var button = $("<button type='button' class='btn btn-secondary btn-lg btn-block cityButton'>").text(input);
+        var button = $("<button>");
+        button.addClass("btn btn-secondary btn-lg btn-block cityButton");
+        button.text(input);
+        button.attr("type", "button");
+
         //console.log(button.value);
         //arrCity.push(button);
 

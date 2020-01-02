@@ -9,6 +9,11 @@
 
 }
 
+#input {
+
+    max-width: 100%;
+}
+
 #dailyDiv {
 
     border-radius: 10px;
