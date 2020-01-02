@@ -1,26 +1,49 @@
 $(document).ready(function() {
 
-    var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
+    var arrCity = JSON.parse(localStorage.getItem("arrCity")) || {};
+    //arrCity = arrCity ? arrCity.split(',') : [];
 
-        //On Click
+    //On Click
 
-        $("#searchButton").on("click", function(event){
-            event.preventDefault();
-    
-            var input = $("#input").val().trim();
-            dailyWeather(input);
-            fiveDayForecast(input);
-            addButton(input);
+    $("#searchButton").on("click", function(event){
+        event.preventDefault();
 
-            localStorage.setItem("arrCity", JSON.stringify(input));
+        var input = $("#input").val().trim();
+        dailyWeather(input);
+        fiveDayForecast(input);
+        addButton(input);
 
-    
-    
-        });
+        localStorage.setItem("arrCity", JSON.stringify(input));
+    });
+
+    $.each(arrCity, function(input) {
+        $("#cityButtonDiv").children("#cityButton").val(input);
+    });
+
+    $(".searchHistoryButton").on("click", function(event){
+        //on click for each history button?
+        //or, how to target the text content of that history button without using id?
+        // then I can call then I can pass that as variable to other ajax calls without being superredundant
+        //, or use local storage to get city name from button?
+
+        // options - get city name from .searchhistoryButton, from local storage, or search historty function array matching id's to array index.
+
+
+    });
+
+    function searchHistory(){
+
+        //add var input to an array or local storage?
+        // or pull from button id.text assuming buttons are hard coded?
+        // have separate api calls for search history buttons?
+        // can on click target .text that is not hardcoded in html? or all come from local storage?
+        // then id could be key and var input could be value
+        //pass input here and add to local storage?
+
+    }
 
     function dailyWeather(input) {
         
-        //$("#dailyIcon").empty();
         var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
         
         $.ajax({
@@ -174,10 +197,15 @@ $(document).ready(function() {
 
         console.log(input);
         //$("#cityButtonDiv").empty();
+        //var buttonID = 0;
 
-        var button = $("<button type='button' class='btn btn-secondary btn-lg btn-block cityButton'>").text(input);
+        var button = $("<button type='button' class='btn btn-secondary btn-lg btn-block cityButton' id='cityButton'>").text(input);
+        //console.log(button.value);
+        //arrCity.push(button);
 
+        
         $("#cityButtonDiv").append(button);
+        //localStorage.setItem("arrCity", JSON.stringify(arrCity));
 
     }
 
