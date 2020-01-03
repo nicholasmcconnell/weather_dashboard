@@ -2,6 +2,10 @@ $(document).ready(function() {
 
     var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
     arrCity.forEach(addButton);
+    var onLoad = arrCity[0];
+    console.log(onLoad)
+    dailyWeather(onLoad);
+    fiveDayForecast(onLoad);
 
     //On Click's
 
@@ -10,7 +14,7 @@ $(document).ready(function() {
 
         var cityString = $("#input").val().trim();
         var city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
-     
+
         console.log(city);
 
         dailyWeather(city);
@@ -55,7 +59,7 @@ $(document).ready(function() {
 
             //Other parts
             var temperature = ((response.main.temp - 273.15) * 9/5 + 32).toFixed(0);
-            $("#dailyTemp").text("Temperature: " + temperature) + "°";
+            $("#dailyTemp").text("Temperature: " + temperature + " °F");
         
             var humidity = response.main.humidity;
             $("#dailyHumidity").text("Humidity: " + humidity + "%");
@@ -97,7 +101,7 @@ $(document).ready(function() {
                 $("#Day-" + idString).children("#date").text(dateString);
 
                 //Icon
-
+                $("#Day-" + idString).children("#icon").empty();
                 var iconCode = dailyArray[listIndex].weather[0].icon;
                 iconCode = iconCode.replace("\"","");
                 iconCode = iconCode.replace("\"","");
@@ -113,7 +117,7 @@ $(document).ready(function() {
                 //Temperature
 
                 var tempString = dailyArray[listIndex].main.temp.toFixed(0);
-                $("#Day-" + idString).children("#temp").text("Temp: " + tempString);
+                $("#Day-" + idString).children("#temp").text("Temp: " + tempString + " °F");
 
                 listIndex+=8;
             }   
@@ -131,7 +135,11 @@ $(document).ready(function() {
             method: "GET"
         }).then(function(response){
             uvIndex = response.value;
-            $("#dailyUVIndex").text("UV Index: " + uvIndex);
+            JSON.stringify(uvIndex);
+            console.log(uvIndex);
+            $("#dailyUVIndex").text("UV Index: ");
+            $("#dailyUVIndex2").text(uvIndex);
+            
         });
     };
 

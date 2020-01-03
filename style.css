@@ -1,9 +1,6 @@
  .searchDiv {
   
     background-color: lightgray;
-    
-    /* margin-left: 5px;
-    margin-right: 5px; */
     border-radius: 10px;
     padding-top: 10px;
 
@@ -52,6 +49,26 @@
 
     background-color: cornflowerblue;
     color: cornsilk;
+}
+
+#dailyUVIndex2 {
+
+    margin-left: 5px;
+    margin-right: 0px;
+    color: cornsilk;
+    background-color: crimson;
+    text-align: center;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+}
+
+.cityButton {
+
+    text-align: left;
 }
 /*
 #card1 {
