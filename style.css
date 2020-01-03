@@ -1,14 +1,14 @@
-#searchDiv {
-    width: 20%;
-    height: 600px;
+ .searchDiv {
+  
     background-color: lightgray;
-    float: left;
-    margin-left: 5px;
-    margin-right: 5px;
+    
+    /* margin-left: 5px;
+    margin-right: 5px; */
     border-radius: 10px;
+    padding-top: 10px;
 
 }
-
+ 
 #input {
 
     max-width: 100%;
@@ -19,14 +19,41 @@
     border-radius: 10px;
     border: lightgrey;
     border-style: solid;
-    margin-left: 20.5%;
+    margin-top: 10px;
+    /* margin-left: 20.5%;
     width: 79%;
     height: 300px;
-    vertical-align: top;
-    padding-left: 10px;
+    vertical-align: top;*/
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 15px;
     
 }
 
+.fiveDayForecast {
+
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.nextcard {
+
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.firstcard {
+
+    margin-top: 10px;
+}
+
+.card {
+
+    background-color: cornflowerblue;
+    color: cornsilk;
+}
+/*
 #card1 {
     border-radius: 10px;
     margin-left: 5px;
@@ -60,4 +87,4 @@
     margin-left: 20.5%;
     width: 79%;
 }
-
+ */

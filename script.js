@@ -3,15 +3,16 @@ $(document).ready(function() {
     var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
     arrCity.forEach(addButton);
 
-
-    //arrCity = arrCity ? arrCity.split(',') : [];
-
-    //On Click
+    //On Click's
 
     $("#searchButton").on("click", function(event){
         event.preventDefault();
 
-        var city = $("#input").val().trim();
+        var cityString = $("#input").val().trim();
+        var city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
+     
+        console.log(city);
+
         dailyWeather(city);
         fiveDayForecast(city);
         addButton(city);
@@ -20,22 +21,11 @@ $(document).ready(function() {
         localStorage.setItem("arrCity", JSON.stringify(arrCity));
     });
 
-    // $.each(arrCity, function(input) {
-    //     $("#cityButtonDiv").children("#cityButton").val(input);
-    // });
-
     $(document).on("click", ".cityButton", function(){
         console.log($(this));
         var city = $(this).text();
         dailyWeather(city);
         fiveDayForecast(city);
-        //on click for each history button?
-        //or, how to target the text content of that history button without using id?
-        // then I can call then I can pass that as variable to other ajax calls without being superredundant
-        //, or use local storage to get city name from button?
-
-        // options - get city name from .searchhistoryButton, from local storage, or search historty function array matching id's to array index.
-
 
     });
 
@@ -49,43 +39,34 @@ $(document).ready(function() {
 
         }).then(function(response){
 
-
-            console.log(response);
-
             //Heading
             var dailyDiv = $("#dailyDiv");
 
             var city = response.name;
             var date = response.dt * 1000;
-            var dateString = moment(date).format("MM-DD-YYYY");
+            var dateString = moment(date).format("MM/DD/YYYY");
             var iconCode = response.weather[0].icon;
             iconCode = iconCode.replace("\"","");
             iconCode = iconCode.replace("\"","");
-            //console.log(iconCode);
             var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
-            //console.log(icon);
             var icon = $("<img>").attr("src", iconURL)
             var dailyHeading = $("#cityDateIcon").text(city + " (" + dateString + ") ");
             $("#cityDateIcon").append(dailyHeading, icon);
-            //dailyDiv.append(icon);
 
             //Other parts
             var temperature = ((response.main.temp - 273.15) * 9/5 + 32).toFixed(0);
-            $("#dailyTemp").text("Temperature: " + temperature);
+            $("#dailyTemp").text("Temperature: " + temperature) + "°";
         
             var humidity = response.main.humidity;
             $("#dailyHumidity").text("Humidity: " + humidity + "%");
-             //console.log(humidity);
+
+            var windspeed = response.wind.speed;
+            $("#dailyWindSpeed").text("Windspeed: " + windspeed + " mph");
 
             var lat = response.coord.lat;
             var lon = response.coord.lon;
 
-        
-
             UVIndex(lon, lat);
-            //return(lat, lon);
-            //uv call after longitude and lat is pulled
-            //pass long and lat as var to fill in url for UV call.
         });
     };
 
@@ -103,16 +84,9 @@ $(document).ready(function() {
             var idArray = [1, 2, 3, 4, 5];
             var listIndex = 6;
             
-            console.log(response);
-            
-            
             for (var i = 0; i < idArray.length; i++) {
                 
-                
                 var idString = idArray[i];
-                console.log(idString);
-                
-                $("#Day-" + idString).children("#icon").empty();
 
                 //Date
 
@@ -142,35 +116,10 @@ $(document).ready(function() {
                 $("#Day-" + idString).children("#temp").text("Temp: " + tempString);
 
                 listIndex+=8;
-
             }   
         });
     };
-            //var id = 1;
-            
-            //console.log(id);
-            
-            
-            
-            
-            
-            
-            // for (j=0; j < idArray.length; i++) { 
-                
-                //     var idString = JSON.stringify(idArray[j].value);
-                //     var id = $("#Day-" + idString);
-                //     console.log(id);
-                //    //$(id).children(".description").val(message);
-                
-                
-
-
-
-            //for loop pulls what is needed and appends all in one swoop.
-
-        //});
-
-
+           
     function UVIndex(lon, lat){
         
 
@@ -181,10 +130,6 @@ $(document).ready(function() {
             url: queryUVIndex,
             method: "GET"
         }).then(function(response){
-            console.log(response);
-
-
-
             uvIndex = response.value;
             $("#dailyUVIndex").text("UV Index: " + uvIndex);
         });
@@ -192,23 +137,11 @@ $(document).ready(function() {
 
     function addButton(input) {
 
-        console.log(input);
-        //$("#cityButtonDiv").empty();
-        //var buttonID = 0;
-
-        //var button = $("<button type='button' class='btn btn-secondary btn-lg btn-block cityButton'>").text(input);
         var button = $("<button>");
-        button.addClass("btn btn-secondary btn-lg btn-block cityButton");
+        button.addClass("btn btn-light btn-lg btn-block mb-2 cityButton");
         button.text(input);
         button.attr("type", "button");
-
-        //console.log(button.value);
-        //arrCity.push(button);
-
-        
         $("#cityButtonDiv").append(button);
-        //localStorage.setItem("arrCity", JSON.stringify(arrCity));
-
     }
 
 });

@@ -23,93 +23,132 @@
 
    
 
-    <div id="searchDiv"> 
-        <p>Seach for City:</p>
-        <form class="form-inline">
-            <div class="form-group mb-2">
-                <input type="text" class="form-control" id="input">
+  
+    
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 searchDiv">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Seach for City:</h4>
+                        <form class="form-inline">
+                            <div class="form-group mb-2">
+                                <input type="text" class="form-control" id="input">
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2" id="searchButton"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12" id="cityButtonDiv">
+                        
+                    </div>
+                </div>
+
             </div>
-            <button type="submit" class="btn btn-primary mb-2" id="searchButton"><i class="fa fa-search"></i></button>
-        </form>
-        <div id="cityButtonDiv">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12" id="cardDiv">
+                        <div id="dailyDiv">
+                            <h3 id="cityDateIcon"></h3>
+                            <h4 id="dailyTemp"></h4><br>
+                            <h4 id="dailyHumidity"></h4><br>
+                            <h4 id="dailyWindSpeed"></h4><br>
+                            <h4 id="dailyUVIndex"></h4>
+                        </div>
+                    </div>
+                <div class="row fiveDayForecast">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <h3>5-Day Forecast: </h3>
+                        </div>
+
+                        <div class="row">
+                            <div class="card firstcard" style="width: 10rem;">
+                                <div class="card-body" id="Day-1">
+                                    <h5 class="card-title" id="date">0/00/00</h5>
+                                    <p class="card-text" id="icon"></p>
+                                    <p class="card-text" id="temp">Temperature: </p>
+                                    <p class="card-text" id="humidity">Humidity: </p>
+                                </div>
+                            </div>
+
+                            <div class="card nextcard font-weight-strong" style="width: 10rem;">
+                                <div class="card-body" id="Day-2">
+                                    <h5 class="card-title" id="date">0/00/00</h5>
+                                    <p class="card-text" id="icon"></p>
+                                    <p class="card-text" id="temp">Temperature: </p>
+                                    <p class="card-text" id="humidity">Humidity: </p>
+                                </div>
+                            </div>
+
+                            <div class="card nextcard" style="width: 10rem;">
+                                <div class="card-body"  id="Day-3">
+                                    <h5 class="card-title" id="date">0/00/00</h5>
+                                    <p class="card-text" id="icon"></p>
+                                    <p class="card-text" id="temp">Temperature: </p>
+                                    <p class="card-text" id="humidity">Humidity: </p>
+                                </div>
+                            </div>
+
+                            <div class="card nextcard" style="width: 10rem;">
+                                <div class="card-body"  id="Day-4">
+                                    <h5 class="card-title" id="date">0/00/00</h5>
+                                    <p class="card-text" id="icon"></p>
+                                    <p class="card-text" id="temp">Temperature: </p>
+                                    <p class="card-text" id="humidity">Humidity: </p>
+                                </div>
+                            </div>
+
+                            <div class="card nextcard" style="width: 10rem;">
+                                <div class="card-body"  id="Day-5">
+                                    <h5 class="card-title" id="date">0/00/00</h5>
+                                    <p class="card-text" id="icon"></p>
+                                    <p class="card-text" id="temp">Temperature: </p>
+                                    <p class="card-text" id="humidity">Humidity: </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
-
     </div>
 
-    <div id="dailyDiv">
-        <h3 id="cityDateIcon"></h3>
-        <h4 id="dailyTemp"></h4>
-        <h4 id="dailyHumidity"></h4>
-        <h4 id="dailyWindSpeed"></h4>
-        <h4 id="dailyUVIndex"></h4>
-    </div>
 
-    <div id="cardDiv">
+    <!-- <div id="cardDiv">
         <div class="row">
             <div class="col-md-12">
-                <h3>5-Day Forecast: </h3>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-2">
-                <div class="card" style="width: 10rem;">
-                    <div class="card-body" id="Day-1">
-                        <h5 class="card-title" id="date">0/00/00</h5>
-                        <p class="card-text" id="icon"></p>
-                        <p class="card-text" id="temp">Temperature: </p>
-                        <p class="card-text" id="humidity">Humidity: </p>
-                    </div>
-                </div>
+                
             </div>
             
 
             <div class="col-md-2">
-                <div class="card nextcard font-weight-strong" style="width: 10rem;">
-                    <div class="card-body" id="Day-2">
-                        <h5 class="card-title" id="date">0/00/00</h5>
-                        <p class="card-text" id="icon"></p>
-                        <p class="card-text" id="temp">Temperature: </p>
-                        <p class="card-text" id="humidity">Humidity: </p>
-                    </div>
-                </div>
+               
             </div>
     
             
             <div class="col-md-2">
-                <div class="card nextcard" style="width: 10rem;">
-                    <div class="card-body"  id="Day-3">
-                        <h5 class="card-title" id="date">0/00/00</h5>
-                        <p class="card-text" id="icon"></p>
-                        <p class="card-text" id="temp">Temperature: </p>
-                        <p class="card-text" id="humidity">Humidity: </p>
-                    </div>
-                </div>
+               
             </div>
 
             <div class="col-md-2">
-                <div class="card nextcard" style="width: 10rem;">
-                    <div class="card-body"  id="Day-4">
-                        <h5 class="card-title" id="date">0/00/00</h5>
-                        <p class="card-text" id="icon"></p>
-                        <p class="card-text" id="temp">Temperature: </p>
-                        <p class="card-text" id="humidity">Humidity: </p>
-                    </div>
-                </div>
+           
             </div>
 
             <div class="col-md-2">
-                <div class="card nextcard" style="width: 10rem;">
-                    <div class="card-body"  id="Day-5">
-                        <h5 class="card-title" id="date">0/00/00</h5>
-                        <p class="card-text" id="icon"></p>
-                        <p class="card-text" id="temp">Temperature: </p>
-                        <p class="card-text" id="humidity">Humidity: </p>
-                    </div>
-                </div>
+                
             </div>
         </div>
-    </div>
+    </div> -->
             
             
     
