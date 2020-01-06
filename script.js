@@ -2,10 +2,14 @@ $(document).ready(function() {
 
     var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
     arrCity.forEach(addButton);
-    var onLoad = arrCity[0];
-    console.log(onLoad)
+    var onLoadIndex = arrCity.length -1
+    var onLoad = arrCity[onLoadIndex];
+
+    console.log(arrCity.length - 1);
     dailyWeather(onLoad);
     fiveDayForecast(onLoad);
+    
+    console.log(onLoad)
 
     //On Click's
 
