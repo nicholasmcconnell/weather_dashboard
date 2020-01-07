@@ -4,28 +4,20 @@ $(document).ready(function() {
     arrCity.forEach(addButton);
     var onLoadIndex = arrCity.length -1
     var onLoad = arrCity[onLoadIndex];
-
-    console.log(arrCity.length - 1);
     dailyWeather(onLoad);
     fiveDayForecast(onLoad);
     
-    console.log(onLoad)
-
     //On Click's
 
     $("#searchButton").on("click", function(event){
-        event.preventDefault();
+        //event.preventDefault();
 
         var cityString = $("#input").val().trim();
         var city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
-
-        console.log(city);
-
         dailyWeather(city);
         fiveDayForecast(city);
         addButton(city);
-        arrCity.push(city),
-
+        arrCity.push(city);
         localStorage.setItem("arrCity", JSON.stringify(arrCity));
     });
 
@@ -48,8 +40,6 @@ $(document).ready(function() {
         }).then(function(response){
 
             //Heading
-            var dailyDiv = $("#dailyDiv");
-
             var city = response.name;
             var date = response.dt * 1000;
             var dateString = moment(date).format("MM/DD/YYYY");
@@ -140,7 +130,6 @@ $(document).ready(function() {
         }).then(function(response){
             uvIndex = response.value;
             JSON.stringify(uvIndex);
-            console.log(uvIndex);
             $("#dailyUVIndex").text("UV Index: ");
             $("#dailyUVIndex2").text(uvIndex);
             

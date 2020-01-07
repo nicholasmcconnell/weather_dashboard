@@ -8,7 +8,7 @@
  
 #input {
 
-    max-width: 100%;
+    max-width: auto;
 }
 
 #dailyDiv {
@@ -17,10 +17,6 @@
     border: lightgrey;
     border-style: solid;
     margin-top: 10px;
-    /* margin-left: 20.5%;
-    width: 79%;
-    height: 300px;
-    vertical-align: top;*/
     padding-left: 15px;
     padding-top: 10px;
     padding-bottom: 15px;
@@ -70,38 +66,3 @@
 
     text-align: left;
 }
-/*
-#card1 {
-    border-radius: 10px;
-    margin-left: 5px;
-    
-
-
-}
-
-.form-inline {
-
-    margin-left: 5px;
-}
-
-.nextcard {
-
-   float: left;
-   margin-left: 10px;
-   border-radius: 10px;
-}
-
-#card3 {
-    
-  
-}
-
-#cardDiv {
-
-    height: 300px;
-    border-style: solid;
-    border-color: lawngreen;
-    margin-left: 20.5%;
-    width: 79%;
-}
- */
