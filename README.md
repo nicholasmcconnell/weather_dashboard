@@ -2,6 +2,7 @@
 index.html
 
     1. The .html contains a bootstrap grid system with various div's with id's.
+        Link: https://nicholasmcconnell.github.io/homework-six/
 
 script.js
 
