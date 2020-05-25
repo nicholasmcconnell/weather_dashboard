@@ -11,7 +11,7 @@ In this assignment, the challenge was to build a weather dashboard application w
 - User can click "Clear Results" to clear the searched city's results.
 
 ## Demo
-![Weather Dashboard Image](assets/images/weatherapp.gif "Weather Dashboard")
+![Weather Dashboard Image](weatherapp.gif "Weather Dashboard")
 
 ## Tech used
 - HTML
