@@ -1,46 +1,26 @@
-# homework-six
-index.html
+# Weather Dashboard
 
-    1. The .html contains a bootstrap grid system with various div's with id's.
-        Link: https://nicholasmcconnell.github.io/homework-six/
+## Overview
+In this assignment, the challenge was to build a weather dashboard application with search functionality to find current weather conditions and the future weather outlook for multiple cities. This app runs in the browser and features dynamically updated HTML and CSS powered by jQuery.
 
-script.js
+## Utilizing the App
+- View the app: [Here]https://nicholasmcconnell.github.io/weather_dashboard/ "Here")
+- User can input a city then hit "Search".
+- When user hits "Search", current weather conditions for the searched city will append to the page along with a 5 day forecast for that city.
+- A button will be created with users search history so that users can access their past search terms. Clicking on the city name will perform a new search that returns current and future conditions for that city.
+- User can click "Clear Results" to clear the searched city's results.
 
-    1. There are four main functions
-        -dailyWeather
-        -fiveDayForecast
-        -UVIndex
-        -addButton
+## Demo
+![Weather Dashboard Image](assets/images/weatherapp.gif "Weather Dashboard")
 
-    lines 3 - 10 
-        - Items are pulled from local storage.  If there are items in the array, a forEach utilizing the code of the addButton function, creates buttons for previously searched cities
-        - setting the onLoad variable's value to the last item of the localStorage array and making it an arguement when calling the dailyWeather and fiveDayForecast functions ensurse it is what the page displays upon being refreshed.
+## Tech used
+- HTML
+- CSS
+- Bootstrap
+- Javascript
+- jQuery
+- Moment.js API
+- OpenWeather API
 
-    lines 12 - 26
-        - This is an onClick event listener that pulls the users city search and calls the dailyWeather and fiveDayForecast functions setting it as an argument.
-
-    lines 32 - 69
-        - This is fucntion dailyWeather
-        - It makes an ajax call to the open weaathermap api and pulls the appropriate information and appends it to the appropriate html elements.
-        - it ends by calling the UVIndex function and sends the longitude and latitude from dailyWeather's ajax call as arguments.  
-        
-
-    lines 71 - 119
-        - makes an AJAX call pulls the appropriate data and apends it to the appropraite html elements.
-        - A for loop is used to make sure the appropriate dates weather is placed on the appropriate days bootstrap card.
-        - the value of variable list index is increased by 8 so to pull data from the next day in the openWeatherAPI's Array.  Every 8 index's a new days weather begins.
-
-    lines 121 - 137
-        -This UVIndex function pulls the appropriate data from the ajax call sand appends it to the html
-
-    139 - 146
-        -This function addButton creates a button for previously searched cities and appends it to the the #cityButtonDiv.
-
-style.CSS
-    - Add's margins padding borders and color to style the page.
-
-
-
-
-
-
+## Contributers
+- Nick McConnell
