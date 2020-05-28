@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a well-equipt weather application that provides the current weather and a five day extented forcasts. Using local storage, Users can save multiple cities for easy access to their weather data. Weather Dashboard features dynamically updated HTML and CSS powered by jQuery and utilizes Moment.js, Bootstrap, and OpenWeather API. 
+This is a well-equipped weather application that provides the current weather and a five day extended forcasts. Using local storage, Users can save multiple cities for easy access to their weather data. Weather Dashboard features dynamically updated HTML and CSS powered by jQuery and utilizes Moment.js, Bootstrap, and OpenWeather API. 
 
 ## Utilizing the App
 - View the app: [Here](https://nicholasmcconnell.github.io/weather_dashboard/ "Here")
