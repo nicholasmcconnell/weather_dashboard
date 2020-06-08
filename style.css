@@ -1,3 +1,6 @@
+ body {
+     align-items: center;
+ }
  .searchDiv {
   
     background-color: lightgray;
@@ -8,7 +11,7 @@
  
 #input {
 
-    max-width: auto;
+    /* width: 17vw; */
 }
 
 #dailyDiv {
@@ -66,3 +69,15 @@
 
     text-align: left;
 }
+
+#clearButton {
+    border-color: black;
+}
+
+#cityButtonDiv {
+    text-align: center;
+}
+
+@media
+
+

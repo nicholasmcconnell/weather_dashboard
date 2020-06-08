@@ -9,6 +9,14 @@ $(document).ready(function() {
     
     //On Click's
 
+    $('#clearButton').on("click", function(event){
+        console.log("clear button")
+        localStorage.clear();
+        window.location.reload();
+        // $('#dailyDiv').empty();
+        // $('#fiveDayCards').empty();
+    })
+
     $("#searchButton").on("click", function(event){
         //event.preventDefault();
 
