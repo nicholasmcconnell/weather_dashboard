@@ -78,6 +78,31 @@
     text-align: center;
 }
 
-@media
+@media only screen and (max-width: 991px) {
+
+    #input {
+        width: 15vw;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    #input {
+        width: 30vw;
+        margin-right: -27vw;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+
+    body {
+        margin-left: 2vw;
+    }
+
+    #input {
+        width: 70vw;
+        margin-right: 0vw;
+    }
+}
 
 
