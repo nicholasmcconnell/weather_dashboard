@@ -6,8 +6,8 @@ $(document).ready(function () {
     arrCity.forEach(addButton);
     let onLoadIndex = arrCity.length - 1
     let onLoad = arrCity[onLoadIndex];
-    // dailyWeather(onLoad);
-    // fiveDayForecast(onLoad);
+    dailyWeather(onLoad);
+    fiveDayForecast(onLoad);
 
     //On Click's
 
@@ -19,7 +19,7 @@ $(document).ready(function () {
     })
 
     $("#searchButton").on("click", function (event) {
-        // event.preventDefault();
+        event.preventDefault();
 
         let cityString = $("#input").val().trim();
         let city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
@@ -78,18 +78,20 @@ $(document).ready(function () {
 
     function dailyWeather(input) {
 
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
+        let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
 
         $.ajax({
             url: queryURL,
             method: "GET",
             success: function () {
-                event.preventDefault();
+                // event.preventDefault();
 
                 console.log('222222222222')
                 $('#alertInput').hide();
                 arrCity.push(input);
                 localStorage.setItem("arrCity", JSON.stringify(arrCity));
+                addButton(input);
+                fiveDayForecast(input);
             },
             error: function () {
                 console.log('3333333')
@@ -100,35 +102,31 @@ $(document).ready(function () {
         }).then(function (response) {
 
             //Heading
-            var city = response.name;
-            var date = response.dt * 1000;
-            var dateString = moment(date).format("MM/DD/YYYY");
-            var iconCode = response.weather[0].icon;
+            let city = response.name;
+            let date = response.dt * 1000;
+            let dateString = moment(date).format("MM/DD/YYYY");
+            let iconCode = response.weather[0].icon;
             iconCode = iconCode.replace("\"", "");
             iconCode = iconCode.replace("\"", "");
-            var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
-            var icon = $("<img>").attr("src", iconURL)
-            var dailyHeading = $("#cityDateIcon").text(city + " (" + dateString + ") ");
+            let iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
+            let icon = $("<img>").attr("src", iconURL)
+            let dailyHeading = $("#cityDateIcon").text(city + " (" + dateString + ") ");
             $("#cityDateIcon").append(dailyHeading, icon);
 
             //Other parts
-            var temperature = ((response.main.temp - 273.15) * 9 / 5 + 32).toFixed(0);
+            let temperature = ((response.main.temp - 273.15) * 9 / 5 + 32).toFixed(0);
             $("#dailyTemp").text("Temperature: " + temperature + " °F");
 
-            var humidity = response.main.humidity;
+            let humidity = response.main.humidity;
             $("#dailyHumidity").text("Humidity: " + humidity + "%");
 
-            var windspeed = response.wind.speed;
+            let windspeed = response.wind.speed;
             $("#dailyWindSpeed").text("Windspeed: " + windspeed + " mph");
 
-            var lat = response.coord.lat;
-            var lon = response.coord.lon;
+            let lat = response.coord.lat;
+            let lon = response.coord.lon;
 
             UVIndex(lon, lat);
-        }).then(function (input) {
-            // console.log(input)
-            fiveDayForecast(input);
-            addButton(input);
         });
     };
 
