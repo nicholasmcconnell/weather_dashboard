@@ -3,9 +3,13 @@ $(document).ready(function () {
     $('#alertInput').hide();
 
     let arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
-    arrCity.forEach(addButton);
     let onLoadIndex = arrCity.length - 1
     let onLoad = arrCity[onLoadIndex];
+
+    if (arrCity.length >= 1) {
+        arrCity.forEach(addButton);
+    }
+
     dailyWeather(onLoad);
     fiveDayForecast(onLoad);
 
@@ -84,9 +88,12 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET",
             success: function () {
-                // event.preventDefault();
+                event.preventDefault();
 
-                console.log('222222222222')
+                if (!input){
+                    return;
+                }
+
                 $('#alertInput').hide();
                 arrCity.push(input);
                 localStorage.setItem("arrCity", JSON.stringify(arrCity));
