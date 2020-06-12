@@ -1,16 +1,17 @@
 $(document).ready(function() {
 
-    var arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
+    $('#alertInput').hide();
+
+    let arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
     arrCity.forEach(addButton);
-    var onLoadIndex = arrCity.length -1
-    var onLoad = arrCity[onLoadIndex];
+    let onLoadIndex = arrCity.length -1
+    let onLoad = arrCity[onLoadIndex];
     dailyWeather(onLoad);
     fiveDayForecast(onLoad);
     
     //On Click's
 
     $('#clearButton').on("click", function(event){
-        console.log("clear button")
         localStorage.clear();
         window.location.reload();
         // $('#dailyDiv').empty();
@@ -18,24 +19,52 @@ $(document).ready(function() {
     })
 
     $("#searchButton").on("click", function(event){
-        //event.preventDefault();
+        // event.preventDefault();
+       
+        let cityString = $("#input").val().trim();
+        let city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
 
-        var cityString = $("#input").val().trim();
-        var city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
-        dailyWeather(city);
-        fiveDayForecast(city);
-        addButton(city);
-        arrCity.push(city);
-        localStorage.setItem("arrCity", JSON.stringify(arrCity));
+   
+
+        if(cityString === '') {
+          event.preventDefault();
+
+          $('#alertInput').show();
+        }else {
+            event.preventDefault();
+            $('#alertInput').hide();
+            dailyWeather(city);
+            fiveDayForecast(city);
+            addButton(city);
+            arrCity.push(city);
+            localStorage.setItem("arrCity", JSON.stringify(arrCity));
+        }
+        
     });
-
+    
     $(document).on("click", ".cityButton", function(){
-        console.log($(this));
         var city = $(this).text();
         dailyWeather(city);
         fiveDayForecast(city);
-
+        
     });
+    
+    // control(cityString, city)
+    // async function control(cityString, city){
+    //     try {
+    //         await inputCheck(cityString, city);
+
+            
+    //     } catch (error) {
+    //         console.log(error);   
+    //     }
+    // }
+
+    const inputCheck = (cityString, city) => {
+        console.log("in input check")
+
+
+    }
 
     function dailyWeather(input) {
         
