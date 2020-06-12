@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     $('#alertInput').hide();
+    // $('#input').empty();
 
     let arrCitySet = JSON.parse(localStorage.getItem("arrCitySet")) || [];
 
@@ -22,6 +23,12 @@ $(document).ready(function () {
 
     $('#clearButton').on("click", function (event) {
         localStorage.clear();
+        window.location.reload();
+        // $('#dailyDiv').empty();
+        // $('#fiveDayCards').empty();
+    })
+
+    $('#saveSearches').on("click", function (event) {
         window.location.reload();
         // $('#dailyDiv').empty();
         // $('#fiveDayCards').empty();
@@ -86,8 +93,6 @@ $(document).ready(function () {
                 $('#alertInput').hide();
                 arrCitySet.push(input);
                 localStorage.setItem("arrCitySet", JSON.stringify(arrCitySet));
-                $('#cityButtonDiv').empty();
-
                 fiveDayForecast(input);
                 // location.reload();
             },

@@ -74,6 +74,10 @@
     border-color: black;
 }
 
+#saveSearches {
+    border-color: black;
+}
+
 #cityButtonDiv {
     text-align: center;
 }
