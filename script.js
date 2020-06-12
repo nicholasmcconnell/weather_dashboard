@@ -2,9 +2,14 @@ $(document).ready(function () {
 
     $('#alertInput').hide();
 
-    let arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
+    let arrCitySet = JSON.parse(localStorage.getItem("arrCitySet")) || [];
+
+    const uniqueSet = new Set(arrCitySet);
+    const arrCity = [...uniqueSet];
+
     let onLoadIndex = arrCity.length - 1
     let onLoad = arrCity[onLoadIndex];
+
 
     if (arrCity.length >= 1) {
         arrCity.forEach(addButton);
@@ -30,38 +35,22 @@ $(document).ready(function () {
 
         if (cityString === '') {
             event.preventDefault();
-            console.log('111111111111')
-            $('#alertInput').show();;
+            $('#alertInput').show();
             return
         } else {
             event.preventDefault();
 
             dailyWeather(city);
         }
-        // else if (!dailyWeather(city)) {
-        //     event.preventDefault();
-        //     console.log('222222222222')
-        //     $('#alertInput').show();
-        //     return;
-        // }
-        // event.preventDefault();
-        // console.log('333333333')
-        // $('#alertInput').hide();
-        // arrCity.push(city);
-        // localStorage.setItem("arrCity", JSON.stringify(arrCity));
-        // dailyWeather(city);
-        // fiveDayForecast(city);
-        // addButton(city);
-
-
     });
 
     $(document).on("click", ".cityButton", function () {
         var city = $(this).text();
         dailyWeather(city);
         fiveDayForecast(city);
-
     });
+
+    return;
 
     // control(cityString, city)
     // async function control(cityString, city){
@@ -90,18 +79,21 @@ $(document).ready(function () {
             success: function () {
                 event.preventDefault();
 
-                if (!input){
+                if (!input) {
                     return;
                 }
 
                 $('#alertInput').hide();
-                arrCity.push(input);
-                localStorage.setItem("arrCity", JSON.stringify(arrCity));
-                addButton(input);
+                arrCitySet.push(input);
+                localStorage.setItem("arrCitySet", JSON.stringify(arrCitySet));
+                $('#cityButtonDiv').empty();
+
                 fiveDayForecast(input);
+                // location.reload();
             },
             error: function () {
                 console.log('3333333')
+                $('#input').val('');
                 $('#alertInput').show();
                 // return false;
             }
@@ -197,6 +189,7 @@ $(document).ready(function () {
             url: queryUVIndex,
             method: "GET"
         }).then(function (response) {
+
             uvIndex = response.value;
             JSON.stringify(uvIndex);
             $("#dailyUVIndex").text("UV Index: ");
@@ -206,10 +199,13 @@ $(document).ready(function () {
     };
 
     function addButton(input) {
+        let city = input
+        console.log(city, input)
 
-        var button = $("<button>");
+        let button = $("<button>");
+        $('#input').val('');
         button.addClass("btn btn-light btn-lg btn-block mb-2 cityButton");
-        button.text(input);
+        button.text(city);
         button.attr("type", "button");
         $("#cityButtonDiv").append(button);
     }
