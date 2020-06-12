@@ -1,58 +1,70 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     $('#alertInput').hide();
 
     let arrCity = JSON.parse(localStorage.getItem("arrCity")) || [];
     arrCity.forEach(addButton);
-    let onLoadIndex = arrCity.length -1
+    let onLoadIndex = arrCity.length - 1
     let onLoad = arrCity[onLoadIndex];
-    dailyWeather(onLoad);
-    fiveDayForecast(onLoad);
-    
+    // dailyWeather(onLoad);
+    // fiveDayForecast(onLoad);
+
     //On Click's
 
-    $('#clearButton').on("click", function(event){
+    $('#clearButton').on("click", function (event) {
         localStorage.clear();
         window.location.reload();
         // $('#dailyDiv').empty();
         // $('#fiveDayCards').empty();
     })
 
-    $("#searchButton").on("click", function(event){
+    $("#searchButton").on("click", function (event) {
         // event.preventDefault();
-       
+
         let cityString = $("#input").val().trim();
         let city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
 
-        if(cityString === '') {
-          event.preventDefault();
-
-          $('#alertInput').show();
-        }else {
+        if (cityString === '') {
             event.preventDefault();
-            $('#alertInput').hide();
+            console.log('111111111111')
+            $('#alertInput').show();;
+            return
+        } else {
+            event.preventDefault();
+
             dailyWeather(city);
-            // fiveDayForecast(city);
-            // addButton(city);
-            arrCity.push(city);
-            localStorage.setItem("arrCity", JSON.stringify(arrCity));
         }
-        
+        // else if (!dailyWeather(city)) {
+        //     event.preventDefault();
+        //     console.log('222222222222')
+        //     $('#alertInput').show();
+        //     return;
+        // }
+        // event.preventDefault();
+        // console.log('333333333')
+        // $('#alertInput').hide();
+        // arrCity.push(city);
+        // localStorage.setItem("arrCity", JSON.stringify(arrCity));
+        // dailyWeather(city);
+        // fiveDayForecast(city);
+        // addButton(city);
+
+
     });
-    
-    $(document).on("click", ".cityButton", function(){
+
+    $(document).on("click", ".cityButton", function () {
         var city = $(this).text();
         dailyWeather(city);
         fiveDayForecast(city);
-        
+
     });
-    
+
     // control(cityString, city)
     // async function control(cityString, city){
     //     try {
     //         await inputCheck(cityString, city);
 
-            
+
     //     } catch (error) {
     //         console.log(error);   
     //     }
@@ -65,35 +77,44 @@ $(document).ready(function() {
     }
 
     function dailyWeather(input) {
-        
+
         var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + input + ",us&APPID=b2af0c249ef1580d9d26aa8ca64187be";
-        
+
         $.ajax({
             url: queryURL,
             method: "GET",
-            error: function(){
+            success: function () {
+                event.preventDefault();
+
+                console.log('222222222222')
+                $('#alertInput').hide();
+                arrCity.push(input);
+                localStorage.setItem("arrCity", JSON.stringify(arrCity));
+            },
+            error: function () {
+                console.log('3333333')
                 $('#alertInput').show();
+                // return false;
             }
 
-        }).then(function(response){
+        }).then(function (response) {
 
             //Heading
             var city = response.name;
-            console.log(city);
             var date = response.dt * 1000;
             var dateString = moment(date).format("MM/DD/YYYY");
             var iconCode = response.weather[0].icon;
-            iconCode = iconCode.replace("\"","");
-            iconCode = iconCode.replace("\"","");
+            iconCode = iconCode.replace("\"", "");
+            iconCode = iconCode.replace("\"", "");
             var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
             var icon = $("<img>").attr("src", iconURL)
             var dailyHeading = $("#cityDateIcon").text(city + " (" + dateString + ") ");
             $("#cityDateIcon").append(dailyHeading, icon);
 
             //Other parts
-            var temperature = ((response.main.temp - 273.15) * 9/5 + 32).toFixed(0);
+            var temperature = ((response.main.temp - 273.15) * 9 / 5 + 32).toFixed(0);
             $("#dailyTemp").text("Temperature: " + temperature + " °F");
-        
+
             var humidity = response.main.humidity;
             $("#dailyHumidity").text("Humidity: " + humidity + "%");
 
@@ -104,25 +125,29 @@ $(document).ready(function() {
             var lon = response.coord.lon;
 
             UVIndex(lon, lat);
+        }).then(function (input) {
+            // console.log(input)
+            fiveDayForecast(input);
+            addButton(input);
         });
     };
 
     function fiveDayForecast(input) {
-        
+
         var query5DayURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + input + ",us&units=imperial&APPID=b2af0c249ef1580d9d26aa8ca64187be";
-        
+
         $.ajax({
             url: query5DayURL,
             method: "GET",
-        
-        }).then(function(response) {
-            
+
+        }).then(function (response) {
+
             var dailyArray = response.list;
             var idArray = [1, 2, 3, 4, 5];
             var listIndex = 6;
-            
+
             for (var i = 0; i < idArray.length; i++) {
-                
+
                 var idString = idArray[i];
 
                 //Date
@@ -136,8 +161,8 @@ $(document).ready(function() {
                 //Icon
                 $("#Day-" + idString).children("#icon").empty();
                 var iconCode = dailyArray[listIndex].weather[0].icon;
-                iconCode = iconCode.replace("\"","");
-                iconCode = iconCode.replace("\"","");
+                iconCode = iconCode.replace("\"", "");
+                iconCode = iconCode.replace("\"", "");
                 //console.log(iconCode);
                 var iconURL = "http://openweathermap.org/img/wn/" + iconCode + ".png";
                 var icon = $("<img>").attr("src", iconURL)
@@ -152,13 +177,13 @@ $(document).ready(function() {
                 var tempString = dailyArray[listIndex].main.temp.toFixed(0);
                 $("#Day-" + idString).children("#temp").text("Temp: " + tempString + " °F");
 
-                listIndex+=8;
-            }   
+                listIndex += 8;
+            }
         });
     };
-           
-    function UVIndex(lon, lat){
-        
+
+    function UVIndex(lon, lat) {
+
 
         var queryUVIndex = "http://api.openweathermap.org/data/2.5/uvi?appid=b2af0c249ef1580d9d26aa8ca64187be&lat=" + lat + "&lon=" + lon;
 
@@ -166,12 +191,12 @@ $(document).ready(function() {
 
             url: queryUVIndex,
             method: "GET"
-        }).then(function(response){
+        }).then(function (response) {
             uvIndex = response.value;
             JSON.stringify(uvIndex);
             $("#dailyUVIndex").text("UV Index: ");
             $("#dailyUVIndex2").text(uvIndex);
-            
+
         });
     };
 
