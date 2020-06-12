@@ -24,8 +24,6 @@ $(document).ready(function() {
         let cityString = $("#input").val().trim();
         let city = cityString.charAt(0).toUpperCase() + cityString.slice(1);
 
-   
-
         if(cityString === '') {
           event.preventDefault();
 
@@ -34,8 +32,8 @@ $(document).ready(function() {
             event.preventDefault();
             $('#alertInput').hide();
             dailyWeather(city);
-            fiveDayForecast(city);
-            addButton(city);
+            // fiveDayForecast(city);
+            // addButton(city);
             arrCity.push(city);
             localStorage.setItem("arrCity", JSON.stringify(arrCity));
         }
@@ -72,12 +70,16 @@ $(document).ready(function() {
         
         $.ajax({
             url: queryURL,
-            method: "GET"
+            method: "GET",
+            error: function(){
+                $('#alertInput').show();
+            }
 
         }).then(function(response){
 
             //Heading
             var city = response.name;
+            console.log(city);
             var date = response.dt * 1000;
             var dateString = moment(date).format("MM/DD/YYYY");
             var iconCode = response.weather[0].icon;
@@ -111,8 +113,8 @@ $(document).ready(function() {
         
         $.ajax({
             url: query5DayURL,
-            method: "GET"
-            
+            method: "GET",
+        
         }).then(function(response) {
             
             var dailyArray = response.list;
