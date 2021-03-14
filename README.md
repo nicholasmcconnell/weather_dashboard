@@ -12,7 +12,7 @@ This is a well-equipped weather application that provides current weather and a 
 - User can click "Clear Results" to clear the searched city's results.
 
 ## Demo
-![Weather Dashboard Image](weatherapp.gif "Weather Dashboard")
+![Weather Dashboard Image](weatherapp2.gif "Weather Dashboard")
 
 ## Tech used
 - HTML
